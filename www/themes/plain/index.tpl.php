@@ -6,6 +6,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Index of <?= $config['bucket-name'].$dir ?></title>
+  <script src="https://cdn.auth0.com/js/lock-9.0.min.js"></script>
   <style type="text/css" media="screen">
     * {
       font-family: verdana, sans-serif;
@@ -114,7 +115,24 @@
   <div id="header">
     <h1><?= $config['page-header'] ?></h1>
   </div>
-  
+
+  <?php if(!$userInfo): ?>
+    <script type="text/javascript">
+      var lock = new Auth0Lock("<?= $config['auth0-client-id'] ?>",
+                               "<?= $config['auth0-domain'] ?>");
+
+      function signin() {
+        lock.show({
+            callbackURL: "<?= $config['auth0-callback-url'] ?>"
+          , responseType: 'code'
+          , authParams: {
+            scope: 'openid profile'
+          }
+        });
+      }
+    signin();
+    </script>
+  <?php else: ?>
   <div id="contents">
 
     <div class="breadcrumb">
@@ -180,6 +198,7 @@
   pageTracker._initData();
   pageTracker._trackPageview();
   </script>
+  <? endif; ?>
   <? endif; ?>
 </body>
 </html>
