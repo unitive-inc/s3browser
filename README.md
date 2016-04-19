@@ -21,11 +21,32 @@ Installation on Heroku (preferred)
         heroku config:set S3_SECRET_KEY=xxx
         heroku config:set PAGE_HEADER=X's Files
 
+        heroku config:set AUTH0_DOMAIN=mydomain.auth0.com
+        heroku config:set AUTH0_CLIENT_ID=xxx # Your client application id from Auth0
+        heroku config:set AUTH0_CLIENT_SECRET=xxx # Your client application secret from Auth0
+        heroku config:set AUTH0_CALLBACK_URL=https://app.mydomain.com # The configured callback URL from Auth0        
+
 4. Deploy to Heroku and load the site
 
         git push heroku master
         heroku open
 
+Configure Auth0
+---------------
+
+1. Create an application in Auth0. The application will provide all of the configuration values needed for authentication.
+
+2. Options configurations:
+
+  a. Only allow Google logins. 
+
+        Applications->(application)->Connections 
+        only enable google-auth2
+
+  b. Restrict the domains of user email addresses.
+      
+        Rules->Create Rule->Email domain whitelist
+        Change the whitelist to your domains.
 
 Installation on Apache
 ----------------------
