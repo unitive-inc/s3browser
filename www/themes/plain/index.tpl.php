@@ -6,25 +6,26 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Index of <?= $config['bucket-name'].$dir ?></title>
+  <script src="https://cdn.auth0.com/js/lock-9.0.min.js"></script>
   <style type="text/css" media="screen">
     * {
       font-family: verdana, sans-serif;
       padding: 0;
       margin: 0;
     }
-    
+
     body {
       background-color: #fff;
     }
-    
+
     p, li, td, div {
       font-size: 13px;
     }
-    
+
     img {
       border: 0;
     }
-    
+
     h2 {
       font-size: 1em;
       margin: 5px 0;
@@ -39,12 +40,12 @@
         ul li img {
           vertical-align: middle;
         }
-    
+
     span.size {
       color: #ccc;
       font-size: 10px;
     }
-    
+
     a {
       text-decoration: none;
        color: #666;
@@ -58,7 +59,7 @@
         a:hover span {
           text-decoration: underline;
         }
-    
+
     div.breadcrumb {
       margin-bottom: 5px;
       border-bottom: 1px solid #eee;
@@ -79,7 +80,7 @@
         div.breadcrumb ul li a:hover {
           background-color: #efefef;
         }
-    
+
     #header {
       background-color: #999;
       padding: 10px 15px;
@@ -89,12 +90,12 @@
         color: #000;
         font-size: 26px;
       }
-    
+
     #contents {
       border-top: 1px solid #eee;
        padding: 15px 20px;
     }
-    
+
     #footer {
       border-top: 1px solid #eee;
       padding: 2px 5px 5px;
@@ -114,11 +115,28 @@
   <div id="header">
     <h1><?= $config['page-header'] ?></h1>
   </div>
-  
+
+  <?php if(!$userInfo): ?>
+    <script type="text/javascript">
+      var lock = new Auth0Lock("<?= $config['auth0-client-id'] ?>",
+                               "<?= $config['auth0-domain'] ?>");
+
+      function signin() {
+        lock.show({
+            callbackURL: "<?= $config['auth0-callback-url'] ?>"
+          , responseType: 'code'
+          , authParams: {
+            scope: 'openid profile'
+          }
+        });
+      }
+    signin();
+    </script>
+  <?php else: ?>
   <div id="contents">
-    
+
     <div class="breadcrumb">
-      Index of 
+      Index of
       <ul>
         <li>
           <a href="<?= $config['base-path'] ?>/"><?= $config['bucket-name'] ?>/</a>
@@ -130,7 +148,7 @@
         <? endforeach ?>
       </ul>
     </div>
-  
+
     <? if (empty($files)): ?>
       <p>No files found.</p>
     <? else: ?>
@@ -163,9 +181,9 @@
     <? endforeach; ?>
     </ul>
     <? endif; ?>
-  
+
   </div>
-  
+
   <div id="footer">
     <p>Powered by <a href="http://github.com/powdahound/s3browser/" target="_blank">S3 Browser</a></p>
   </div>
@@ -180,6 +198,7 @@
   pageTracker._initData();
   pageTracker._trackPageview();
   </script>
+  <? endif; ?>
   <? endif; ?>
 </body>
 </html>

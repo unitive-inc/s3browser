@@ -23,6 +23,12 @@ $c['torrent-threshold'] = getenv_default('TORRENT_THRESHOLD', null);
 $c['s3-access-key'] = getenv_default('S3_ACCESS_KEY');
 $c['s3-secret-key'] = getenv_default('S3_SECRET_KEY');
 
+// Auth0 Information
+$c['auth0-domain'] = getenv_default('AUTH0_DOMAIN');
+$c['auth0-client-id'] = getenv_default('AUTH0_CLIENT_ID');
+$c['auth0-client-secret'] = getenv_default('AUTH0_CLIENT_SECRET');
+$c['auth0-callback-url'] = getenv_default('AUTH0_CALLBACK_URL');
+
 // Bucket information should be cached so your S3 account doesn't need to be queried for every user request. Default cache-time is 10 minutes.
 $c['cache-time'] = getenv_default('CACHE_TIME', 60 * 10);
 $c['cache-dir'] = getenv_default('CACHE_DIR', '/tmp');
