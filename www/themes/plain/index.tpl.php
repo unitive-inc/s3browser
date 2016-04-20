@@ -171,7 +171,7 @@
             <span><?= $key ?></span>
           </a>
         <? else: ?>
-           <a href="<?= $config['bucket-url-prefix'] ?>/<?= $info['path'] ?><? if ($asTorrent): ?>?torrent<? endif; ?>" <? if (isset($config['google-analytics-id'])): ?>onclick="javascript:pageTracker._trackPageview('<?= $info['path'] ?>');"<? endif; ?>>
+          <a href="<?= $config['base-path'] ?>/<?= $info['path'] ?><? if ($asTorrent): ?>?torrent<? endif; ?>" <? if (isset($config['google-analytics-id'])): ?>onclick="javascript:pageTracker._trackPageview('<?= $info['path'] ?>');"<? endif; ?>>
           <img src="<?= $config['base-path'] ?>/themes/plain/img/file.gif">
           <span><?= $key ?></span>
         </a>
